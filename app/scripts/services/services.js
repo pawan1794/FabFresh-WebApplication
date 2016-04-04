@@ -10,7 +10,7 @@ angular.module('routerApp')
     $http({
      method  : 'GET',
      url     : URL+'/users/address/',
-     headers : {'Authorization': 'Bearer '+$cookies.get('key')} 
+     headers : {'Authorization': 'Bearer '+$cookies.get('token')} 
     })
     .success(function(response){
         defer.resolve(response);
@@ -21,30 +21,29 @@ angular.module('routerApp')
 
    return defer.promise
   };
-
-  service.track= function(o_id) {
+  
+  service.track= function(order_id) {
     var defertrack = $q.defer();
     $http({
       method  : 'GET',
-      url     : URL+'/orders/'+o_id+'/',
-      headers : {'Authorization': 'Bearer ' + $cookies.get('key')} 
+      url     : URL+'/orders/'+order_id+'/',
+      headers : {'Authorization': 'Bearer ' + $cookies.get('token')} 
      })
-    .success(function(response) {
-        defertrack.resolve(response);
-    })
-    .error(function (error,status){
-        defertrack.reject(error);
-    })
-
-    return defertrack.promise
-  };
+     .success(function(response) {
+      defertrack.resolve(response);
+     })
+     .error(function(error,status) {
+      defertrack.reject(error);
+     })
+     return defertrack.promise
+  }
 
   service.otpResend= function(){
     var deferotp = $q.defer();
     $http({
      method  : 'GET',
      url     : URL+'/users/otpresend/',
-     headers : {'Authorization': 'Bearer '+$cookies.get('key')} 
+     headers : {'Authorization': 'Bearer '+$cookies.get('token')} 
     })
     .success(function(response){
         deferotp.resolve(response);
@@ -65,7 +64,7 @@ angular.module('routerApp')
       method  : 'GET',
       url     : URL+'/users/otp/',
       params : {otp:x},
-      headers : {'Authorization': 'Bearer '+$cookies.get('key')} 
+      headers : {'Authorization': 'Bearer '+$cookies.get('token')} 
      })
     .success(function(response){
         defers.resolve(response);
@@ -84,7 +83,7 @@ angular.module('routerApp')
      method  : 'POST',
      url     : URL+'/couponsvalididty/',
      data : x,
-     headers : {'Authorization': 'Bearer '+$cookies.get('key'), 'Content-Type': 'application/json'} 
+     headers : {'Authorization': 'Bearer '+$cookies.get('token'), 'Content-Type': 'application/json'} 
     })
     .success(function(response){
       defercv.resolve(response);
@@ -102,7 +101,7 @@ angular.module('routerApp')
      method  : 'POST',
      url     : URL+'/coupons/',
      data : x,
-     headers : {'Authorization': 'Bearer '+$cookies.get('key'), 'Content-Type': 'application/json'} 
+     headers : {'Authorization': 'Bearer '+$cookies.get('token'), 'Content-Type': 'application/json'} 
     })
     .success(function(response){
       defercv.resolve(response);
@@ -117,13 +116,17 @@ angular.module('routerApp')
 
 
    service.placeOrder= function(x){
-      var deferpf = $q.defer();
+      // console.log(x.addressId);
+      // console.log(x.type);
+      // console.log(x.special_ins);
+
+       var deferpf = $q.defer();
       $http({
          method  : 'GET',
          url     : URL+'/v1/placeorder/address/'+x.addressId+'/order/'+"0/",
-         params  :{type: x.type},
-         "special_instructions":x.special_ins,
-         headers : {'Authorization': 'Bearer '+$cookies.get('key')} 
+         params  :{type: x.type,special_instructions:x.special_ins},
+         
+         headers : {'Authorization': 'Bearer '+$cookies.get('token')} 
       })
       .success(function(response){
           deferpf.resolve(response);
@@ -140,7 +143,7 @@ angular.module('routerApp')
       $http({
          method  : 'GET',
          url     : URL+'/v1/placeorder/address/'+address.id+'/order/'+order.id+'/',
-         headers : {'Authorization': 'Bearer '+$cookies.get('key')} 
+         headers : {'Authorization': 'Bearer '+$cookies.get('token')} 
       })
       .success(function(response){
           deferpf.resolve(response);
@@ -159,7 +162,7 @@ angular.module('routerApp')
      $http({
       method  : 'GET',
       url     : URL+'/orders/'+id+'/',
-      headers : {'Authorization': 'Bearer '+ $cookies.get('key')} 
+      headers : {'Authorization': 'Bearer '+ $cookies.get('token')} 
      })
     .success(function(response){
         deferOrder.resolve(response);
@@ -176,7 +179,7 @@ angular.module('routerApp')
      $http({
       method  : 'GET',
       url     : URL+'/orders/',
-      headers : {'Authorization': 'Bearer '+ $cookies.get('key')} 
+      headers : {'Authorization': 'Bearer '+ $cookies.get('token')} 
      })
     .success(function(response){
         deferOrder.resolve(response);
@@ -195,7 +198,7 @@ angular.module('routerApp')
       method  : 'POST',
       url     : URL+'/users/address/',
       data    : add,
-      headers : {'Content-Type': 'application/json', 'Authorization': 'Bearer '+$cookies.get('key')}
+      headers : {'Content-Type': 'application/json', 'Authorization': 'Bearer '+$cookies.get('token')}
      })
       .success(function(response){
         deferhome.resolve(response);
@@ -254,7 +257,7 @@ angular.module('routerApp')
       $http({
           method  : 'GET',
           url     : URL+'/users/info/',
-          headers : {'Authorization': 'Bearer '+$cookies.get('key')} 
+          headers : {'Authorization': 'Bearer '+$cookies.get('token')} 
          })
       .success(function(response){
         deferll.resolve(response);

@@ -41,6 +41,7 @@
 
                <div id="place_address_box">
 
+
                       <tst >{{x.address}}</tst><br>
 
                
@@ -96,8 +97,8 @@
           <!-- Floating Multiline Textfield -->
 <form ng-submit="placeOrderForm()">
   <div class="mdl-textfield mdl-js-textfield">
-    <textarea ng-model="special_ins" class="mdl-textfield__input sel_type" type="text" rows= "4" id="sample5" ></textarea>
-    <label class="mdl-textfield__label" for="sample5">Special Instructions....</label>
+    <textarea ng-model="special_ins" placeholder="Special Instructions" class="form-control" type="text" rows= "4" id="sample5" ></textarea>
+    <label  for="sample5">Special Instructions....</label>
   </div>
   <button type="submit" id="btn4">Place Order</button>
 </form>

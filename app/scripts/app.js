@@ -5,6 +5,8 @@ var routerApp = angular.module('routerApp', [
     'ngCookies',
     'simplePagination',
     'ngStorage',
+    'chart.js',
+    
     ]);
  
 routerApp.config(function($stateProvider, $urlRouterProvider ) {
@@ -26,7 +28,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider ) {
         })
 
         .state('reset_password', {
-            url: '/#',
+            url: '/reset-password',
             templateUrl: '../views/reset_password.html',
             controller: 'reset_passwordCTRL'
         })
@@ -47,7 +49,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider ) {
             controller: 'ordersCTRL',
         })
         .state('place_order', {
-            url: '/place_order',
+            url: '/place-order',
             templateUrl: '../views/place_order.html',
             controller: 'place_orderCTRL',
         })
@@ -57,26 +59,23 @@ routerApp.config(function($stateProvider, $urlRouterProvider ) {
             controller: 'trackCTRL',
         })
         .state('profiles', {
-            url: '/#',
+            url: '/about-us',
             templateUrl: '../views/profile.html',
             //controller: 'profileCTRL',
         })
-         .state('Logout', {
+         .state('logout', {
             url: '/#',
             templateUrl: '../views/logout.html',
             //template: '<h1>BYE<h1>',
             controller: 'logoutCTRL',
         })
-         .state('About', {
-            url: '/#',
-            template: '<h1>yoyoyoyoyooy<h1>',
-            controller: 'AboutCTRL',
-        })
+        
          .state('deliver', {
             url: '/deliver-now',
             templateUrl: '../views/deliver.html',
-            controller: 'address_listCTRL',
+            controller: 'deliverCTRL',
         })
+
 });
 /*
 routerApp.factory('UserService', function() {

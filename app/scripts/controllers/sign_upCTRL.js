@@ -19,9 +19,8 @@ routerApp
             alert(data.status);
           }
           else{
-
-           $cookies.put('key',data.access_token);
-           console.log($cookies.get('key'));
+            $localStorage.username=$scope.sign_up.email; 
+           $cookies.put('token',data.access_token);
             alert("Successfully Signed up");
             $state.go('otp');
           }
@@ -30,4 +29,25 @@ routerApp
         alert("error");
       })
     };
+
+    var flag=0;
+    $scope.set = function() {
+      if(flag)
+        return;
+      if($scope.sign_up!=undefined && $scope.sign_up.password!=undefined){
+        setClass('#Email');
+        setClass('#mobile');
+        setClass('#password');
+        flag=1;
+      }
+    };
+      $('.awesome-form .input-group input').focusout(function(){
+        var text_val = $(this).val();
+        if(text_val === "")
+          $(this).removeClass('has-value');
+        else {
+          $(this).addClass('has-value');
+        }
+    });
+    
 });

@@ -1,12 +1,12 @@
 'use strict';
 
 routerApp
-  .controller('otpCTRL', function($rootScope, $scope, $http, $state,$cookies,service) {
+  .controller('otpCTRL', function($localStorage,$rootScope, $scope, $http, $state,$cookies,service) {
     $scope.user = [];
     var URL = 'http://fabfresh-dev.elasticbeanstalk.com'
     
         $scope.otpResend = function(){
-            task.otpResend()
+            service.otpResend()
             .then(function(response){
               alert("OTP has been resent");
             },function(error){
@@ -19,9 +19,10 @@ routerApp
                 service.checkOtp(x)
                 .then(function(response){
                 if(response.Status == "Verified"){
-                alert("Successfully Verified");
-                $rootScope.otp_flag = 1;
-                $state.go("address");
+                    alert("Successfully Verified");
+                    $cookies.put('otp_flag',1);
+                    $localStorage.homeState = 'address';
+                    $state.go("address");
                 }
                 else{
                     alert("you have entered the wrong OTP");
@@ -32,5 +33,15 @@ routerApp
         })
     };
 
+
+
+   $('.awesome-form .input-group input').focusout(function(){
+        var text_val = $(this).val();
+        if(text_val === "")
+          $(this).removeClass('has-value');
+        else {
+          $(this).addClass('has-value');
+        }
+    });
 
 });

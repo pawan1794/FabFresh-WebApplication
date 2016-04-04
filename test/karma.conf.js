@@ -34,6 +34,8 @@ module.exports = function(config) {
       'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/material-design-lite/material.min.js',
       'bower_components/ngstorage/ngStorage.js',
+      'bower_components/angular-fusioncharts/dist/angular-fusioncharts.js',
+      'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

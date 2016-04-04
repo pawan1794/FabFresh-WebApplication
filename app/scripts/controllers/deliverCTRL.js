@@ -2,15 +2,12 @@
 
 
 routerApp
-  .controller('address_listCTRL', function($localStorage,$window,$cookies, $rootScope,$scope, $http, $state,Pagination,service) {
+  .controller('deliverCTRL', function($localStorage,$window,$cookies, $rootScope,$scope, $http, $state,Pagination,service) {
     
-     if($cookies.get('key') == undefined){
-        $state.go('home');
-        alert("Please log in to continue");
+     if(angular.isUndefined($cookies.get('otp_flag'))){
+        $state.go('login');
+        return;
       }
-      console.log($localStorage.previousState);
-      console.log($localStorage.currentState);
-      console.log($localStorage.order_id);
        if( service.deliver!=2 && $localStorage.previousState!='track_order' && $localStorage.previousState!=''){
         $state.go('orders');
         return;
@@ -48,12 +45,11 @@ routerApp
         };
         service.applyCoupon(x)
           .then(function(response){
-            //alert(response.status);
+            alert(response.status);
             if(response.status == 'Invalid Coupon')
               $scope.isvalid = response.status;
             else
-              $scope.isvalid='Coupon Applied';
-            
+              $scope.isvalid='Coupon Valid';
             service.getOrder($localStorage.order_id)
               .then(function(response){
                   $scope.order=response;
